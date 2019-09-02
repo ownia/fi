@@ -1,0 +1,15 @@
+{
+  "name": "film-index",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ownia",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^6.0.5"
+  }
+}

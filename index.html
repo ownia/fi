@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Film-index</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div>
+        <div style="text-align:center;">
+            <input type="text" placeholder="Please select a file" id="actual-file" disabled="disabled" />
+            <input type="button" value="Choose a file" id="select-file" />
+        </div>
+        <br><br>
+        <textarea id="content-editor" rows="5"></textarea>
+        <textarea id="content-editor2" rows="5"></textarea><br>
+        <input type="button" id="clear" value="Clear file" />
+    </div>
+
+    <script>
+        const {
+            dialog
+        } = require('electron').remote;
+
+        var fs = require('fs');
+
+        document.getElementById('select-file').addEventListener('click', function () {
+            dialog.showOpenDialog(function (fileNames) {
+                if (fileNames === undefined) {
+                    console.log("No file selected");
+                } else {
+                    document.getElementById("actual-file").value = fileNames[0];
+                    var strFileName = fileNames[0].substring(fileNames[0].lastIndexOf("\\") + 1);
+                    var arr1 = strFileName.split(".");
+                    
+                    document.getElementById("content-editor").value = s;
+                    document.getElementById("content-editor2").value = strFileName;
+
+                }
+            });
+        }, false);
+
+        document.getElementById('clear').addEventListener('click', function () {
+            document.getElementById("content-editor").value = "";
+        });
+    </script>
+</body>
+
+</html>
