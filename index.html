@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Film-index</title>
+    <title>Fi</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -14,9 +14,15 @@
             <input type="button" value="Choose a file" id="select-file" />
         </div>
         <br><br>
-        <textarea id="content-editor" rows="5"></textarea>
-        <textarea id="content-editor2" rows="5"></textarea><br>
+        <div>
+            <textarea id="content-editor" rows="5"></textarea>
+            <textarea id="content-editor2" rows="1"></textarea>
+            <textarea id="content-editor3" rows="1"></textarea>
+            <textarea id="content-editor4" rows="1"></textarea>
+        </div>
+        <br>
         <input type="button" id="clear" value="Clear file" />
+        <input type="button" id="clear2" value="Clear file" />
     </div>
 
     <script>
@@ -34,9 +40,18 @@
                     document.getElementById("actual-file").value = fileNames[0];
                     var strFileName = fileNames[0].substring(fileNames[0].lastIndexOf("\\") + 1);
                     var arr1 = strFileName.split(".");
-                    
-                    document.getElementById("content-editor").value = s;
-                    document.getElementById("content-editor2").value = strFileName;
+
+                    document.getElementById("content-editor").value = strFileName;
+
+                    var title = arr1[0];
+                    var type = arr1[arr1.length - 1];
+                    var team = arr1[arr1.length - 2];
+                    var team1 = team.split("-");
+                    var team2 = team1[team1.length - 1];
+
+                    document.getElementById("content-editor2").value = type;
+                    document.getElementById("content-editor3").value = title;
+                    document.getElementById("content-editor4").value = team2;
 
                 }
             });
@@ -44,6 +59,10 @@
 
         document.getElementById('clear').addEventListener('click', function () {
             document.getElementById("content-editor").value = "";
+        });
+
+        document.getElementById('clear2').addEventListener('click', function () {
+            document.getElementById("content-editor2").value = "";
         });
     </script>
 </body>
