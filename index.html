@@ -49,8 +49,18 @@
                     var team1 = team.split("-");
                     var team2 = team1[team1.length - 1];
 
+                    var key = arr1.findIndex("Bluray");
+
+                    let value = arr1.find(function (currentValue, currentIndex, currentArray) {
+                        // console.log(currentValue, currentIndex, currentArray);
+                        if (currentValue === "Bluray") {
+                            return true;
+                        }
+                    });
+
+
                     document.getElementById("content-editor2").value = type;
-                    document.getElementById("content-editor3").value = title;
+                    document.getElementById("content-editor3").value = key;
                     document.getElementById("content-editor4").value = team2;
 
                 }
