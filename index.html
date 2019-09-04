@@ -5,6 +5,7 @@
     <title>Fi</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
@@ -14,15 +15,30 @@
             <input type="button" value="Choose a file" id="select-file" />
         </div>
         <br><br>
+        <textarea class="fullfilename" id="content-editor" readonly="readonly" rows="1"></textarea>
+
         <div>
-            <textarea id="content-editor" rows="5"></textarea>
-            <textarea id="content-editor2" rows="1"></textarea>
-            <textarea id="content-editor3" rows="1"></textarea>
-            <textarea id="content-editor4" rows="1"></textarea>
+            <h class="item">视频格式</h>
+            <textarea class="subfilename" id="content-editor2" readonly="readonly" rows="1"></textarea><br>
+            <h class="item">是否蓝光</h>
+            <textarea class="subfilename" id="content-editor3" readonly="readonly" rows="1"></textarea><br>
+            <h class="item">压制小组</h>
+            <textarea class="subfilename" id="content-editor4" readonly="readonly" rows="1"></textarea><br>
+            <h class="item">电影标题</h>
+            <textarea class="subfilename" id="content-editor5" readonly="readonly" rows="1"></textarea><br>
+            <h class="item">发行年份</h>
+            <textarea class="subfilename" id="content-editor6" readonly="readonly" rows="1"></textarea><br>
+            <h class="item">视频编码</h>
+            <textarea class="subfilename" id="content-editor7" readonly="readonly" rows="1"></textarea><br>
+            <h class="item">分辨率</h>
+            <textarea class="subfilename" id="content-editor8" readonly="readonly" rows="1"></textarea><br>
+            <h class="item">音频编码</h>
+            <textarea class="subfilename" id="content-editor9" readonly="readonly" rows="1"></textarea><br>
         </div>
         <br>
         <input type="button" id="clear" value="Clear file" />
         <input type="button" id="clear2" value="Clear file" />
+        <input type="button" id="rename" value="Rename file" />
     </div>
 
     <script>
@@ -43,25 +59,36 @@
 
                     document.getElementById("content-editor").value = strFileName;
 
-                    var title = arr1[0];
                     var type = arr1[arr1.length - 1];
                     var team = arr1[arr1.length - 2];
                     var team1 = team.split("-");
                     var team2 = team1[team1.length - 1];
 
-                    var key = arr1.findIndex("Bluray");
+                    var key = strFileName.search(/bluray/i);
+                    var isBluray = "";
+                    if (key > 0) {
+                        var isBluray = strFileName.substring(key, key + 6);
+                    }
 
-                    let value = arr1.find(function (currentValue, currentIndex, currentArray) {
-                        // console.log(currentValue, currentIndex, currentArray);
-                        if (currentValue === "Bluray") {
-                            return true;
-                        }
-                    });
+                    var key2 = strFileName.search(/\d\d\d\d+/g);
+                    var title = strFileName.substring(0, key2 - 1);
+                    var title2 = title.replace(new RegExp("\\.", 'g'), " ");
+                    var year = strFileName.substring(key2, key2 + 4);
 
+                    var key3 = strFileName.search(/264/g);
+                    var code = strFileName.substring(key3 - 1, key3 + 3);
+
+                    var key4 = strFileName.search(/720|1080|2160/g);
+                    var res1 = strFileName.substring(key4, key4 + 5);
+                    var res2 = res1.replace(".", "");
 
                     document.getElementById("content-editor2").value = type;
-                    document.getElementById("content-editor3").value = key;
+                    document.getElementById("content-editor3").value = isBluray;
                     document.getElementById("content-editor4").value = team2;
+                    document.getElementById("content-editor5").value = title2;
+                    document.getElementById("content-editor6").value = year;
+                    document.getElementById("content-editor7").value = code;
+                    document.getElementById("content-editor8").value = res2;
 
                 }
             });
@@ -72,8 +99,26 @@
         });
 
         document.getElementById('clear2').addEventListener('click', function () {
-            document.getElementById("content-editor2").value = "";
+            var x = document.getElementsByClassName("subfilename");
+            var i;
+            for (i = 0; i < x.length; i++) {
+                x[i].value = "";
+            }
         });
+
+        let files = fs.readdirSync(path);
+        for (let i = 0; i < files.length; i++) {
+            fs.readFile(`${path}/${files[i]}`, function (err, data) {
+                let newname = data.toString().split('\n')[1].split(' ')[1] + '-' + data.toString().split('\n')[
+                    0].split(' ')[1].replace(/['|']/g, '');
+                fs.rename(`${path}/${files[i]}`, `${path}/${newname}.md`);
+            })
+        }
+
+        document, getElementById('rename').addEventListener('click', function () {
+            let file = fs.readdirSync(strFileName);
+            fs.rename('test.txt');
+        })
     </script>
 </body>
 

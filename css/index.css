@@ -1,0 +1,17 @@
+.fullfilename {
+    resize: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.subfilename {
+    resize: none;
+    width: 90%;
+    box-sizing: border-box;
+}
+
+.item {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto
+}
