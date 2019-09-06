@@ -34,11 +34,17 @@
             <textarea class="subfilename" id="content-editor8" readonly="readonly" rows="1"></textarea><br>
             <h class="item">音频编码</h>
             <textarea class="subfilename" id="content-editor9" readonly="readonly" rows="1"></textarea><br>
+
+            <textarea class="subfilename" id="content-editor10" readonly="readonly" rows="1"></textarea><br>
+            <div id="content"></div>
+
         </div>
         <br>
         <input type="button" id="clear" value="Clear file" />
         <input type="button" id="clear2" value="Clear file" />
         <input type="button" id="rename" value="Rename file" />
+        <input type="button" id="tmdb" value="TMDb" />
+
     </div>
 
     <script>
@@ -106,6 +112,8 @@
             }
         });
 
+        /*
+        var path = document.getElementById('actual-file').value;
         let files = fs.readdirSync(path);
         for (let i = 0; i < files.length; i++) {
             fs.readFile(`${path}/${files[i]}`, function (err, data) {
@@ -114,10 +122,46 @@
                 fs.rename(`${path}/${files[i]}`, `${path}/${newname}.md`);
             })
         }
+        */
 
-        document, getElementById('rename').addEventListener('click', function () {
-            let file = fs.readdirSync(strFileName);
+        document.getElementById('rename').addEventListener('click', function () {
+            var path = document.getElementById('actual-file').value;
+            let file = fs.readdirSync(path);
             fs.rename('test.txt');
+        })
+
+        window.onload = function () {
+            var url = "tmdb.json"
+            var request = new XMLHttpRequest();
+            request.withCredentials = true;
+            request.open("GET", url);
+            request.send(null);
+            request.onload = function () {
+                if (request.status == 200) {
+                    var contentdiv = document.getElementById("content");
+                    var jsoncontent = JSON.parse(request.responseText);
+                    var jsondiv = document.createElement("div");
+                    jsondiv.innerHTML = jsoncontent[0].name;
+                    contentdiv.appendChild(jsondiv);
+                }
+            }
+        }
+
+        document.getElementById('tmdb').addEventListener('click', function () {
+            var url = "tmdb.json"
+            var data = "{}";
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === this.DONE) {
+                    console.log(this.responseText);
+                }
+            });
+            xhr.open("GET", url);
+            xhr.send(data);
+            console.log(data);
+
+            document.getElementById("content-editor10").value = data;
         })
     </script>
 </body>
