@@ -125,9 +125,17 @@
         */
 
         document.getElementById('rename').addEventListener('click', function () {
-            var path = document.getElementById('actual-file').value;
-            let file = fs.readdirSync(path);
-            fs.rename('test.txt');
+            url = fs.access('./test.txt', function (err) {
+                if (!err) {
+                    fs.rename('./test.txt', './rename.txt', err => {
+                        console.log('test to rename.');
+                    });
+                } else {
+                    fs.rename('./rename.txt', './test.txt', err => {
+                        console.log('rename to test.');
+                    });
+                }
+            })
         })
 
         window.onload = function () {
@@ -160,8 +168,6 @@
             xhr.open("GET", url);
             xhr.send(data);
             console.log(data);
-
-            document.getElementById("content-editor10").value = data;
         })
     </script>
 </body>
