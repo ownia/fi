@@ -44,6 +44,8 @@
         <input type="button" id="clear2" value="Clear file" />
         <input type="button" id="rename" value="Rename file" />
         <input type="button" id="tmdb" value="TMDb" />
+        <input type="button" id="douban" value="douban" />
+
 
     </div>
 
@@ -169,6 +171,11 @@
             xhr.send(data);
             console.log(data);
         })
+
+        document.getElementById('douban').addEventListener('click', function () {
+        // https://github.com/zce/douban-api-proxy
+        }
+
     </script>
 </body>
 
