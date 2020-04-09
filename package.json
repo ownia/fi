@@ -10,7 +10,20 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "electron": "^6.0.5"
+    "electron": "^6.1.9"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/@ownia" }
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@ownia"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ownia/fi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ownia/fi/issues"
+  },
+  "homepage": "https://github.com/ownia/fi#readme",
+  "dependencies": {
+    "npm-check": "^5.9.2"
+  }
 }
